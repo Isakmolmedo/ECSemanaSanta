@@ -7,7 +7,6 @@ x3 <- c(3, 4, 5, 6, 7)
 
 set.seed(1)
 x<-runif(10,0,1)
-x
 y<-rnorm(10)
 y
 
