@@ -121,3 +121,26 @@ barplot(tab3,
     main = "Number of employees by gender and job category",
     beside = TRUE
 )
+
+# Ejercicio propuesto.
+hist(airquality$Ozone, breaks = seq(0, 170, by = 10), prob = TRUE)
+
+attach(airquality)
+help(curve)
+curve(dnorm(x), 0, 150, add = TRUE)
+curve(dnorm(x, mean = mean(Ozone, na.rm = TRUE), sd = sd(Ozone, na.rm = TRUE)), 0, 180, add = TRUE)
+max(Ozone, na.rm = TRUE)
+# observamos que la función de densidad
+# no representa muy bien el modelo.
+qqnorm(Ozone)
+# nos indica que la mayor de muestras se agrupan en el intervalo
+# [-1,1], alrededor de 0.
+ks.test(Ozone, pnorm, mean = mean(Ozone, na.rm = TRUE), sd = sd(Ozone, na.rm = TRUE))
+shapiro.test(Ozone)
+# el p valor del test de kolmogorov smirnov es muy pequeño y de hecho menor
+# que 0.015 luego aceptamos
+boxplot(Ozone)
+# nos dice que la mayoría de las muestras están cerca
+# de la media que es menor que 50.
+boxplot(Ozone * Month)
+str(airquality)
