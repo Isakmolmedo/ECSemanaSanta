@@ -102,3 +102,61 @@ help(legend)
 help(pch)
 help(legend)
 help(legend)
+#Función par.
+par()
+par(mfrow=c(2,2))#nos da una matriz de 2x2 gráficos
+curve(dnorm(x),-3,3,main='Gráfico: Normal estándar')
+curve(dt(x,df=10),-3,3,main='Gráfico 2: t de Student')
+curve(dchisq(x,df=5),0,20,main='Gráfico 3: chi-cuadrado')
+curve(df(x,df1=20,df2=10),0,5,main='Gráfico 4: F de Snedecor')
+
+#modificamos parámetros.
+par(mar=c(3.5,3.5,2.5,1.5),oma=c(1,1,1,1),mgp=c(1.5,0.5,0),
+cex.axis=0.8,cex.lab=0.8,cex.main=1,col.lab='blue',bty='n')
+par(mfrow=c(2,2)) # matriz de 2x2 gráficos (se rellenan por filas)
+curve(dnorm(x),-3,3,main='Gráfico 1: Normal estándar')
+curve(dt(x,df=10),-3,3,main='Gráfico 2: t de Student')
+curve(dchisq(x,df=5),0,20,main='Gráfico 3: chi-cuadrado')
+curve(df(x,df1=20,df2=10),0,5,main='Gráfico 4: F de Snedecor')
+
+#Dispositivos gráficos
+windows()
+dev.cur()
+dev.list()
+# Bloque 1: Generación de datos para los gráficos
+x<-seq(0,2*pi,length.out=20)
+set.seed(2)
+y1<-sin(x)+0.3*rnorm(20)
+y2<-sin(x)+0.15*rnorm(20)
+# Bloque 2: Iniciar un dispositivo gráfico (número 2)
+# y representar (x,y1)
+windows()
+plot(x,y1,type='o',pch=15,col=2)
+# Bloque 3: Iniciar otro dispositivo gráfico (número 3)
+# y representar (x,y2)
+windows()
+plot(x,y2,type='o',pch=16,col=4)
+## Comprueba la lista de dispositivos y el dispositivo actual
+dev.list()
+dev.cur()
+# Bloque 4: Añadir la curva $f(x)=sen(x)$ a ambos gráficos
+# primero en rojo en el dispositivo 2
+dev.set(2)
+curve(sin(x),add=TRUE,col=2,lty=3)
+# después en azul el dispositivo 3
+dev.set(3) # esto no sería necesario (3 es el dispositivo actual)
+curve(sin(x),add=TRUE,col=4,lty=3)
+# Bloque 5: Comparar las dos gráficas en un nuevo dispositivo (4)
+# en este caso será un fichero con nombre 'graf.pdf'
+pdf('graf.pdf')
+plot(x,y1,pch=15,col=2,ylab='')
+points(x,y2,pch=16,col=4)
+# añadimos segmentos entre los puntos
+segments(x,y1,x,y2,col='purple')
+# y la curva f(x)=sen(x) de referencia
+curve(sin(x),add=TRUE,lty=3)
+# cerramos el dispositivo actual (el pdf)
+dev.off()
+
+
+#Metodología de análisis estadísticos en R
